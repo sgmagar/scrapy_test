@@ -14,6 +14,14 @@ BOT_NAME = 'scrapy_test'
 SPIDER_MODULES = ['scrapy_test.spiders']
 NEWSPIDER_MODULE = 'scrapy_test.spiders'
 
+ITEM_PIPELINES = {
+    'scrapy_test.pipelines.ScrapyTestPipeline': 1,
+}
+
+# Retry many times since proxies often fail
+RETRY_TIMES = 10
+# Retry on most error codes since proxies fail for different reasons
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'scrapy_test (+http://www.yourdomain.com)'
@@ -61,9 +69,7 @@ NEWSPIDER_MODULE = 'scrapy_test.spiders'
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'scrapy_test.pipelines.SomePipeline': 300,
-#}
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
